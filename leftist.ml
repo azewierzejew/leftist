@@ -1,12 +1,12 @@
-(* Autor: Antoni Zewierzejew *)
-(* Reviewer: Jagoda Kaminska *)
+(* Autor: Antoni Żewierżejew *)
+(* Reviewer: Jagoda Kamińska *)
 
 
-(* Typ złączalnej kolejki priorytetowej                                 *)
-(* Prawa wysokość to długość ścieżki do skrajnie prawego liścia         *)
-(* Struktura Node to (lewy syn, korzeń, prawa wysokość, prawy syn)      *)
-(* Niezminikiem kolejki jest lewicowość drzewa dla każdego wierzchołka  *)
-(* Lewicowość oznacza że prawa wysokość to najdłuższa ścieżka do liścia *)
+(* typ złączalnej kolejki priorytetowej                                  *)
+(* prawa wysokość to długość ścieżki do skrajnie prawego liścia          *)
+(* struktura Node to (lewy syn, korzeń, prawa wysokość, prawy syn)       *)
+(* niezminikiem kolejki jest lewicowość drzewa dla każdego wierzchołka   *)
+(* lewicowość oznacza, że prawa wysokość to najkrótsza ścieżka do liścia *)
 type 'a queue = 
     | Leaf
     | Node of 'a queue * 'a * int * 'a queue
@@ -20,13 +20,13 @@ let right_height q =
     | Leaf -> 0
     | Node (_, _, g, _) -> g
 
-(* attach do korzenia v przypina q1, q2 tak żeby drzewo wynikowe było lewicowe *)
+(* attach do korzenia v przypina q1, q2 jako synów zachowując lewicowość *)
 let attach q1 v q2 =
     let g1, g2 = right_height q1, right_height q2 in
     if g1 < g2 then Node (q2, v, g1 + 1, q1)
     else Node (q1, v, g2 + 1, q2)
 
-(* join łaczy kolejki q1, q2 *)
+(* join łączy kolejki q1, q2 *)
 let rec join q1 q2 =
     match q1, q2 with
     | Leaf, q -> q
