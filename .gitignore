@@ -1,0 +1,7 @@
+*.cmi
+*.cmo
+*.cmx
+*.byte
+*.o
+*.native
+.depend
